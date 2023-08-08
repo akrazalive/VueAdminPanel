@@ -48,7 +48,7 @@ export default {
     alert('called');
     // Emit the custom event to update the isAuthenticated prop in App.vue
     this.$emit('update-authenticated', true);
-     router.push('/dashboard');
+    // router.push('/dashboard');
       const credentials = {
         email: this.email,
         password: this.password

@@ -75,7 +75,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="myAccountDropdown">
                             <li><a class="dropdown-item" href="#">Change Profile Details</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a @click="logout" class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -88,7 +88,19 @@
 
 <script>
 export default {
-name:'SiteHeader'
+name:'SiteHeader',
+ props: {
+            isAuthenticated: {
+            type: Boolean,
+            required: true,
+            },
+            logout: {
+            type: Function,
+            required: true,
+            },
+        },
+methods:{
+}        
 };
 </script>
 

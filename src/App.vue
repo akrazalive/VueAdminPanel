@@ -2,7 +2,7 @@
   <div>
     
     <div v-if="isAuthenticated">
-      <SiteHeader />
+      <SiteHeader :isAuthenticated="isAuthenticated"  :logout="logout"/>
       <div class="container mt-4">
         <h1>Welcome to the Admin Panel!</h1>
         <router-view></router-view>
@@ -47,6 +47,7 @@
 <script>
 import SiteHeader from "@/components/SiteHeader.vue";
 import SiteFooter from "@/components/SiteFooter.vue";
+import router from "./router";
 
 export default {
   components: {
@@ -62,6 +63,10 @@ export default {
     updateAuthenticated(value) {
       this.isAuthenticated = value;
     },
+    logout(){
+      this.isAuthenticated = false;
+      router.push('login');
+    }
   },
   
 };

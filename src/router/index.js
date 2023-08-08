@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+//import App from "@/App.vue";
 import UserSignUp from "@/components/UserSignUp.vue";
 import UserDashboard from "@/components/UserDashboard.vue";
 import UserLogIn from "@/components/UserLogIn.vue";
@@ -28,7 +29,8 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: UserDashboard
+    component: UserDashboard,
+    meta: { requiresAuth: true } // Add this meta field to mark routes that require authentication
   },
   {
     path: '/forgot-password',
@@ -39,36 +41,64 @@ const routes = [
     path: "/products",
     name: "products",
     component: AllProducts,
+    meta: { requiresAuth: true }
   },
   {
-    path: "/product/new",
+    path: "/new-product",
     name: "newproduct",
     component: NewProduct,
+    meta: { requiresAuth: true }
   },
   {
     path: "/customers",
     name: "customers",
     component: AllCustomers,
+    meta: { requiresAuth: true }
   },
   {
-    path: "/customer/new",
+    path: "/new-customer",
     name: "newcustomer",
     component: NewCustomer,
+    meta: { requiresAuth: true }
   },
   {
     path: "/suppliers",
     name: "suppliers",
     component: AllSuppliers,
+    meta: { requiresAuth: true }
   },
   {
-    path: "/supplier/new",
+    path: "/new-supplier",
     name: "newsupplier",
     component: NewSupplier,
+    meta: { requiresAuth: true }
   }
 ];
+
 
 const router = new VueRouter({
   routes,
 });
+
+
+// Navigation guard to check authentication before accessing routes marked with requiresAuth: true
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = router.app.isAuthenticated; // Access the prop from the router's app instance
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({
+        name: 'login',
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next(); // Allow access to the authenticated route
+    }
+  } else {
+    next(); // No authentication required, allow access
+  }
+});
+
+
 
 export default router;
