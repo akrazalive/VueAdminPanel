@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import UserSignUp from "@/components/UserSignUp.vue";
+import UserDashboard from "@/components/UserDashboard.vue";
 import UserLogIn from "@/components/UserLogIn.vue";
 import ForgotPassword from "@/components/ForgotPassword.vue";
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: UserLogIn
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: UserDashboard
   },
   {
     path: '/forgot-password',

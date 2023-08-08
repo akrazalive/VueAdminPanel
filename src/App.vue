@@ -38,7 +38,7 @@
         </nav>
       </header>
       <div class="container mt-4">
-        <router-view></router-view>
+        <router-view :isAuthenticated="isAuthenticated" @update-authenticated="updateAuthenticated"></router-view>
       </div>   
     </div>
   </div>
@@ -53,13 +53,17 @@ export default {
     SiteHeader,
     SiteFooter,
   },
-  
-  props: {
-    isAuthenticated: {
-      type: Boolean,
-      required: true,
+   data() {
+    return {
+      isAuthenticated: false,
+    };
+  },
+  methods: {
+    updateAuthenticated(value) {
+      this.isAuthenticated = value;
     },
   },
+  
 };
 </script>
 

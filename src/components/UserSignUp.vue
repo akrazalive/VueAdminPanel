@@ -1,6 +1,6 @@
 <template>
     <div class="vue-tempalte row">
-        <form class="col-md-5 m-auto">
+        <form class="col-md-5 m-auto" @submit.prevent="signUp">
             <h3>Sign Up</h3>
             <div class="form-group mt-4">
                 <label>Full Name</label>
@@ -23,10 +23,28 @@
     </div>
 </template>
 <script>
+import router from '@/router';
+
+
     export default {
-        name:'UserSignUp',  
+        name:'UserSignUp',
+         props: {
+            isAuthenticated: {
+            type: Boolean,
+            required: true,
+            },
+        },  
         data() {
             return {}
-        }
+        },
+        methods: {
+            signUp() {
+            alert('called');
+            // Emit the custom event to update the isAuthenticated prop in App.vue
+            this.$emit('update-authenticated', true);
+            router.push('/dashboard');
+            }
+       }
+
     }
 </script>

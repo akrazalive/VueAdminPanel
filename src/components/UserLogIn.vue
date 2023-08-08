@@ -31,6 +31,12 @@ import router from '@/router';
 
 export default {
   name:'UserLogIn',
+  props: {
+    isAuthenticated: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       email: '',
@@ -40,6 +46,9 @@ export default {
   methods: {
     signIn() {
     alert('called');
+    // Emit the custom event to update the isAuthenticated prop in App.vue
+    this.$emit('update-authenticated', true);
+     router.push('/dashboard');
       const credentials = {
         email: this.email,
         password: this.password
